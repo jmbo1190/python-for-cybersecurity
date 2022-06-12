@@ -1,0 +1,50 @@
+---
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.8.0
+  kernelspec:
+    display_name: PyCyperSec3.9
+    language: python
+    name: pycypersec3.9
+---
+
+```{python}
+# Get current python environment - depends on selected kernel
+import os
+import sys
+import inspect
+
+print("os.getcwd(): " + os.getcwd())
+print("sys.prefix: ", sys.prefix)
+print("sys.exec_prefix: ", sys.exec_prefix)
+print("sys.executable: ", sys.executable)
+print("os.path.basename(sys.exec_prefix)", os.path.basename(sys.exec_prefix))
+
+print("inspect.currentframe():", inspect.currentframe())
+
+!{sys.executable} -V
+```
+
+```{python}
+# Get installed package versions in virtual environment associated to Jupyter kernel
+import pkg_resources
+
+pkgs = dict([(d.__dict__.get("_key"), d.__dict__.get("_version")) for d in pkg_resources.working_set])
+
+for k in sorted(pkgs.keys()):
+    print(k, pkgs.get(k))
+
+```
+
+```{python}
+# !which tcpdump
+
+```
+
+```{python}
+
+```

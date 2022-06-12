@@ -1,0 +1,85 @@
+---
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.8.0
+  kernelspec:
+    display_name: PyCyperSec3.9
+    language: python
+    name: pycypersec3.9
+---
+
+```{python}
+# Get current python environment - depends on selected kernel
+import os
+import sys
+import inspect
+
+print("os.getcwd(): " + os.getcwd())
+print("sys.prefix: ", sys.prefix)
+print("sys.exec_prefix: ", sys.exec_prefix)
+print("sys.executable: ", sys.executable)
+print("os.path.basename(sys.exec_prefix)", os.path.basename(sys.exec_prefix))
+
+print("inspect.currentframe():", inspect.currentframe())
+
+!{sys.executable} -V
+```
+
+```{python}
+from scapy.all import *
+
+packet = rdpcap('/home/jmb/data/Pyproj/python-for-cybersecurity/http.cap')
+packet
+
+```
+
+```{python}
+p = packet[0]
+p.show()
+
+```
+
+```{python}
+p[TCP].dport = 8080
+p.show()
+```
+
+```{python}
+p[TCP].dport = 8045
+p.show()
+
+```
+
+```{python}
+p = IP()/TCP()
+p.show()
+
+```
+
+```{python}
+p[TCP].sport = 35
+p.show()
+```
+
+```{python}
+p = IP(dst="8.8.8.8")/TCP(dport=53)
+p.show()
+```
+
+```{python}
+p = IP(dst="8.8.8.8")/UDP(dport=53)/DNS()
+p.show()
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
