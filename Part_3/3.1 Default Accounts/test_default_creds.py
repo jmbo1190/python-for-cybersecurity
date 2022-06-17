@@ -14,22 +14,27 @@ def SSHLogin(host,port,username,password):
     ssh.close()
     
 def TelnetLogin(host,port,username,password):
-    h = "http://"+host+":"+port+"/"
-    tn = telnetlib.Telnet(h)
-    tn.read_until("login: ")
-    tn.write(username + "\n")
-    tn.read_until("Password: ")
-    tn.write(password + "\n")
+    h = "http://"+host+":"+str(port)+"/"
+    # tn = telnetlib.Telnet(h)
     try: 
+        tn = telnetlib.Telnet(host,port, 2)
+        tn.read_until("login: ")
+        tn.write(username + "\n")
+        tn.read_until("Password: ")
+        tn.write(password + "\n")
+ 
         result = tn.expect(["Last login"])
         if (result[0] > 0):
             print("Telnet login successful on %s:%s with username %s and password %s" % (host,port,username,password))
         tn.close()
-    except EOFError:
+    except: # EOFError:
         print("Login failed %s %s" % (username,password))
 
 host = "127.0.0.1"
-port = 2200
+# host = "localhost"
+# port = 2200
+# port = 22
+port = 23
 with open("defaults.txt","r") as f:
     for line in f:
         vals = line.split()
