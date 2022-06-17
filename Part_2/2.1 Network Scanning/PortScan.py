@@ -13,7 +13,7 @@ def DNSScan(host):
     ans,unans = sr(IP(dst=host)/UDP(dport=53)/DNS(rd=1,qd=DNSQR(qname="google.com")),timeout=2,verbose=0)
     if ans:
         print("DNS Server at %s"%host)
-    
+
 host = "8.8.8.8"
 
 SynScan(host)
