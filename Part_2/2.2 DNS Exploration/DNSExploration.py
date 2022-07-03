@@ -12,7 +12,10 @@ def ReverseDNS(ip):
 def DNSRequest(domain):
     ips = []
     try:
-        result = dns.resolver.resolve(domain)
+        # result = dns.resolver.resolve(domain)
+        dns_resolver = dns.resolver.Resolver()       
+
+        result = dns_resolver.query(domain)
         if result:
             print(domain)
             for answer in result:
@@ -32,9 +35,10 @@ def SubdomainSearch(domain, dictionary,nums):
                 s = word+str(i)+"."+domain
                 DNSRequest(s)
 
-domain = "google.com"
-d = "subdomains.txt"
-dictionary = []
-with open(d,"r") as f:
-    dictionary = f.read().splitlines()
-SubdomainSearch(domain,dictionary,True)
+for domain in ["google.com", "freeddns.org"]:
+    d = "subdomains.txt"
+    dictionary = []
+    with open(d,"r") as f:
+        dictionary = f.read().splitlines()
+    SubdomainSearch(domain,dictionary,True)
+
